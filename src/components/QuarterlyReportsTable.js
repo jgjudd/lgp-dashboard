@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const QuarterlyReports = ({ quarterlyReports = [], symbol }) => {
     return (
         <div>
-            { symbol && <h3>{ symbol } - Annual Income Reports</h3> }
+            { symbol && <h3 style={{ textAlign: 'center' }}>{ symbol } - Annual Income Reports</h3> }
             <Table>
                 <tbody>
                     <tr>

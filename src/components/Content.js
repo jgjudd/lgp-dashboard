@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import Axios from '../AxiosProvider';
 import QuarterlyReports from './QuarterlyReportsTable';
 import AnnualReports from './AnnualReports';
+import { getIncomeStatements } from '../AlphaVantageProvider';
 
 // TODO: Move api call to external js file?
 // TODO: Break Content.js into smaller components
@@ -18,9 +18,8 @@ const Content = () => {
         symbol: ''
     });
 
-
-    const getIncomeStatement = async (symbol) => {
-        const response = await Axios.getIncomeStatement(symbol);
+    const getIncome = async (symbol) => {
+        const response = await getIncomeStatements(symbol);
 
         setIncomeReports({
             quarterlyReports: response.data.quarterlyReports,
@@ -33,7 +32,7 @@ const Content = () => {
         <ContainerDivStyled>
             <CenteredContent>
                 <input placeholder="Symbol..." onChange={e => setSearchTerm(e.target.value)} />
-                <button onClick={() => getIncomeStatement(searchTerm)}>Search</button>
+                <button onClick={() => getIncome(searchTerm)}>Search</button>
             </CenteredContent>
             <StlyedContent>
                 <AnnualReports 
@@ -53,12 +52,11 @@ export default Content;
 
 const CenteredContent = styled.div`
     padding-top: 1rem;
-    display: flex;
-    justify-content: center; 
+    padding-left: 1rem;
 `
 
 const ContainerDivStyled = styled.div`
-    height: 90vh;
+    height: 85vh;
     width: 100vw;
     background-color: white;
     overflow-y: scroll;

@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import SymbolSearch from './SymbolSearch';
 
 const Header = () => {
     return (
         <HeaderStyled>
-            <ContentStyled>LGP</ContentStyled>
+            <Logo>LGP</Logo>
+            <SymbolSearch />
         </HeaderStyled>
     )
 }
@@ -11,13 +13,14 @@ const Header = () => {
 export default Header;
 
 const HeaderStyled = styled.header`
-    height: 5vh;
+    height: 10vh;
     width: 100vw;
     background-color: #450091ed;
     color: white;
+    display: flex;
+    justify-content: space-between;
 `;
 
-const ContentStyled = styled.div`
-    padding-top: 10px;
-    padding-left: 10px;
-`;
+const Logo = styled.span`
+    color: white;
+`
