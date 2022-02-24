@@ -1,48 +1,55 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import QuarterlyReports from './QuarterlyReportsTable';
-import AnnualReports from './AnnualReports';
-import { getIncomeStatements } from '../AlphaVantageProvider';
 
+import IncomeStatements from './screens/IncomeStatements';
+import MarketData from './screens/MarketData';
 // TODO: Move api call to external js file?
 // TODO: Break Content.js into smaller components
 // TODO: On that note, more atomic elements (break things down)
 // TODO: Switch Layout to CSS Grid, fixed dashboard tiles...Then make tiles drag'n'drop
 // TODO: Tabbed layout by section (what sections?)
+// TODO: Typescript (just for practice)
+// TODO: Flask API 
+// TODO: SQLite DB (to start with)
 
+// TODO: Generic Market Data
+// TODO: List of IPO's in the next 3, 6, 9 months (Endpoint = IPO Calendar, in Fundamental Data Section)
 const Content = () => {
-    const [searchTerm, setSearchTerm] = useState('Default');
-    const [incomeReports, setIncomeReports] = useState({
-        quarterlyReports: [],
-        annualReports: [],
-        symbol: ''
-    });
+    const [screen, setScreen] = useState('MarketData');
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const getIncome = async (symbol) => {
-        const response = await getIncomeStatements(symbol);
-
-        setIncomeReports({
-            quarterlyReports: response.data.quarterlyReports,
-            annualReports: response.data.annualReports,
-            symbol: response.data.symbol
-        })  
+    const ComponentRegistry = {
+        'IncomeStatements': <IncomeStatements symbol={searchTerm} />,
+        'MarketData': <MarketData />
     }
 
     return (
         <ContainerDivStyled>
             <CenteredContent>
-                <input placeholder="Symbol..." onChange={e => setSearchTerm(e.target.value)} />
-                <button onClick={() => getIncome(searchTerm)}>Search</button>
+                <input placeholder="Symbol..." 
+                    value={searchTerm} 
+                    onChange={e => setSearchTerm(e.target.value)} 
+                />
+                <button onClick={() => setSearchTerm(searchTerm)}>Search</button>
+                <div>
+                    <button>Company Overview</button>
+                    <button>Time Series (Daily)</button>
+                    <button>Time Series (Weekly)</button>
+                    <button>Time Series (Monthly)</button>
+                    <button onClick={() => setScreen("IncomeStatements")}>Income Statements</button>
+                    <button>Balance Sheets</button>
+                    <button>Cash Flow</button>
+                    <button>Earnings</button>
+                    <button>Earnings Calendar</button>
+                    <button onClick={() => setScreen('MarketData')}>General Market Telemetry Data</button>
+                </div>
             </CenteredContent>
             <StlyedContent>
-                <AnnualReports 
-                    symbol={incomeReports.symbol} 
-                    annualReports={incomeReports.annualReports} 
-                />
-                <QuarterlyReports 
-                    symbol={incomeReports.symbol} 
-                    quarterlyReports={incomeReports.quarterlyReports} 
-                />
+
+                {
+                    ComponentRegistry[screen]
+                }
+
             </StlyedContent>
         </ContainerDivStyled>
     )
