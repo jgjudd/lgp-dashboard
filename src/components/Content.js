@@ -26,22 +26,24 @@ const Content = () => {
     return (
         <ContainerDivStyled>
             <CenteredContent>
-                <input placeholder="Symbol..." 
-                    value={searchTerm} 
-                    onChange={e => setSearchTerm(e.target.value)} 
-                />
-                <button onClick={() => setSearchTerm(searchTerm)}>Search</button>
                 <div>
-                    <button>Company Overview</button>
-                    <button>Time Series (Daily)</button>
-                    <button>Time Series (Weekly)</button>
-                    <button>Time Series (Monthly)</button>
+                    <input placeholder="Symbol..." 
+                        value={searchTerm} 
+                        onChange={e => setSearchTerm(e.target.value)} 
+                    />
+                    <button onClick={() => setSearchTerm(searchTerm)}>Search</button>
+                </div>
+                <div>
+                    <button>Overview</button>
+                    <button>Daily</button>
+                    <button>Weekly</button>
+                    <button>Monthly</button>
                     <button onClick={() => setScreen("IncomeStatements")}>Income Statements</button>
                     <button>Balance Sheets</button>
                     <button>Cash Flow</button>
                     <button>Earnings</button>
                     <button>Earnings Calendar</button>
-                    <button onClick={() => setScreen('MarketData')}>General Market Telemetry Data</button>
+                    <button onClick={() => setScreen('MarketData')}>Market Data</button>
                 </div>
             </CenteredContent>
             <StlyedContent>

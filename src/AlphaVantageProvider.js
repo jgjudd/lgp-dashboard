@@ -29,29 +29,41 @@ export const getMarketTelemetryData = async () => {
         "Durable Goods Orders": 0, 
         "Unemployment Rate": 0
      * **/
-    const test = {
-        "GDP": await getGDP()
-    }
-    console.log(test);
     const arrayOfPromises = [
-        getGDP,
-        getGDPPerCapita,
-        getTreasuryYield,
-        getFederalFundsInterestRate,
-        getConsumerPriceIndex,
-        getInflationRate,
-        getExpectedInflationRate,
-        getConsumerSentiment,
-        getRetailSales,
-        getDurableGoodsOrders,
-        getUnemploymentRate,
-        getNonfarmPayroll
+        getGDP(),
+        getGDPPerCapita(),
+        getTreasuryYield(),
+        getFederalFundsInterestRate(),
+        getConsumerPriceIndex(),
+        getUnemploymentRate(),
+        getInflationRate(),
+        getExpectedInflationRate(),
+        getConsumerSentiment(),
+        getRetailSales(),
+        getDurableGoodsOrders(),
+        getNonfarmPayroll()
     ]
 
-    // Promise.all(arrayOfPromises).then( values => {
-    //     console.log("Values....");
-    //     values.map( x => console.log(x));
-    //   });
+    return await axios.all(arrayOfPromises)
+        .then(res => {
+            //console.log(res);
+            let results = [];
+
+            res.map((x) => {
+                //console.log(x.data, i);
+                // res.data.data
+                // array.object.object
+                results.push({
+                    data: x.data.data, 
+                    interval: x.data.interval, 
+                    name: x.data.name, 
+                    unit: x.data.unit
+                })
+            });
+            //console.log(results);
+            return results
+        })
+        .catch(err => console.log(err));
 }
 
 // Individual Promises

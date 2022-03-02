@@ -1,8 +1,10 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { getMarketTelemetryData } from '../../AlphaVantageProvider'
+import styled from "styled-components";
 
 const MarketData = () => {
-    
+    const [marketData, setMarketData] = useState([]);
+
     const market = {
         "GDP": 0,
         "GDP Per Capita": 0, 
@@ -18,10 +20,13 @@ const MarketData = () => {
         "Total Nonfarm Payroll": 0
     }
 
-    useEffect(() => {
+    useEffect( () => {
+        async function getData() {
+            const response  = await getMarketTelemetryData()//.then(res => setMarketData(res))
+            setMarketData(response)
+        }
 
-        getMarketTelemetryData()
-
+        getData();
     }, [])
 
     return (
@@ -32,19 +37,47 @@ const MarketData = () => {
             }}
         >
             {
-                Object.keys(market).map((value, i) => {
+                marketData && marketData.map((value, i) => {
                     return (
                         <div 
                             key={i} 
                             style={{ padding: '1rem', 
-                            border: '1px solid black', 
-                            display: 'flex', 
-                            flexDirection: 'column', 
-                            alignItems: 'center', 
-                            margin: '1rem' }}
+                                border: '1px solid black', 
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                alignItems: 'center'
+                            }}
                         >
-                            <p><b>{ value }</b></p>
-                            <p>{ market[value] }</p>
+                            <p>{value.name}</p>
+
+                            <div 
+                                style={{
+                                    overflowY: 'scroll',
+                                    maxHeight: '25vh',
+                                    width: '100%'
+                                }}
+                            >
+                                <table
+                                    style={{
+                                        width: '100%',
+                                        textAlign: 'center',
+                                        borderCollapse: 'collapse'
+                                    }}
+                                >
+                                    <TR>
+                                        <TH>{value.interval}</TH>
+                                        <TH>{value.unit}</TH>
+                                    </TR>
+                                {
+                                    value.data.map(x => 
+                                        <TR>
+                                            <TD>{x.date}</TD>
+                                            <TD>{x.value}</TD>
+                                        </TR>
+                                    )
+                                }
+                                </table>
+                            </div>
                         </div> 
                     )
                 })
@@ -54,3 +87,19 @@ const MarketData = () => {
 }
 
 export default MarketData
+  
+const TD = styled.td`
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+`
+const TH = styled.th`
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+`
+const TR = styled.tr`
+  &:nth-child(even) {
+    background-color: #dddddd;
+  }
+`
