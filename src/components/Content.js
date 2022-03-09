@@ -3,6 +3,15 @@ import styled from 'styled-components';
 
 import IncomeStatements from './screens/IncomeStatements';
 import MarketData from './screens/MarketData';
+import Overview from './screens/Overview';
+import BalanceSheets from './screens/BalanceSheets';
+import CashFlow from './screens/CashFlow';
+import Daily from './screens/Daily';
+import Weekly from './screens/Weekly';
+import Monthly from './screens/Monthly';
+import Earnings from './screens/Earnings';
+import EarningsCalendar from './screens/EarningsCalendar';
+
 // TODO: Move api call to external js file?
 // TODO: Break Content.js into smaller components
 // TODO: On that note, more atomic elements (break things down)
@@ -20,7 +29,15 @@ const Content = () => {
 
     const ComponentRegistry = {
         'IncomeStatements': <IncomeStatements symbol={searchTerm} />,
-        'MarketData': <MarketData />
+        'MarketData': <MarketData />,
+        "Overview": <Overview />,
+        "Daily": <Daily />,
+        "Weekly": <Weekly />,
+        "Monthly": <Monthly />,
+        "BalanceSheets": <BalanceSheets />,
+        "CashFlow": <CashFlow />,
+        "Earnings": <Earnings />,
+        "EarningsCalendar": <EarningsCalendar />
     }
 
     return (
@@ -34,24 +51,22 @@ const Content = () => {
                     <button onClick={() => setSearchTerm(searchTerm)}>Search</button>
                 </div>
                 <div>
-                    <button>Overview</button>
-                    <button>Daily</button>
-                    <button>Weekly</button>
-                    <button>Monthly</button>
-                    <button onClick={() => setScreen("IncomeStatements")}>Income Statements</button>
-                    <button>Balance Sheets</button>
-                    <button>Cash Flow</button>
-                    <button>Earnings</button>
-                    <button>Earnings Calendar</button>
                     <button onClick={() => setScreen('MarketData')}>Market Data</button>
+                    <button onClick={() => setScreen('Overview')}>Overview</button>
+                    <button onClick={() => setScreen('Daily')}>Daily</button>
+                    <button onClick={() => setScreen('Weekly')}>Weekly</button>
+                    <button onClick={() => setScreen('Monthly')}>Monthly</button>
+                    <button onClick={() => setScreen("IncomeStatements")}>Income Statements</button>
+                    <button onClick={() => setScreen("BalanceSheets")}>Balance Sheets</button>
+                    <button onClick={() => setScreen("CashFlow")}>Cash Flow</button>
+                    <button onClick={() => setScreen("Earnings")}>Earnings</button>
+                    <button onClick={() => setScreen("EarningsCalendar")}>Earnings Calendar</button>                    
                 </div>
             </CenteredContent>
             <StlyedContent>
-
                 {
                     ComponentRegistry[screen]
                 }
-
             </StlyedContent>
         </ContainerDivStyled>
     )
