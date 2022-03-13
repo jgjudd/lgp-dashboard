@@ -2,9 +2,7 @@ import styled from 'styled-components';
 
 const Footer = () => {
     return (
-        <FooterStyled>
-            footer from child
-        </FooterStyled>
+        <FooterStyled /> 
     )
 }
 

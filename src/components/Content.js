@@ -10,7 +10,6 @@ import Daily from './screens/Daily';
 import Weekly from './screens/Weekly';
 import Monthly from './screens/Monthly';
 import Earnings from './screens/Earnings';
-import EarningsCalendar from './screens/EarningsCalendar';
 
 // TODO: Move api call to external js file?
 // TODO: Break Content.js into smaller components
@@ -26,6 +25,7 @@ import EarningsCalendar from './screens/EarningsCalendar';
 const Content = () => {
     const [screen, setScreen] = useState('MarketData');
     const [searchTerm, setSearchTerm] = useState('');
+    const [showAdditionalStockTabs, setShowAdditionalStockTabs] = useState(false)
 
     const ComponentRegistry = {
         'IncomeStatements': <IncomeStatements symbol={searchTerm} />,
@@ -35,9 +35,13 @@ const Content = () => {
         "Weekly": <Weekly />,
         "Monthly": <Monthly />,
         "BalanceSheets": <BalanceSheets />,
-        "CashFlow": <CashFlow />,
-        "Earnings": <Earnings />,
-        "EarningsCalendar": <EarningsCalendar />
+        "CashFlow": <CashFlow symbol={searchTerm} />,
+        "Earnings": <Earnings />
+    }
+
+    function handleSearchTermUpdate() {
+        setSearchTerm(searchTerm)
+        setShowAdditionalStockTabs(true)
     }
 
     return (
@@ -48,7 +52,8 @@ const Content = () => {
                         value={searchTerm} 
                         onChange={e => setSearchTerm(e.target.value)} 
                     />
-                    <button onClick={() => setSearchTerm(searchTerm)}>Search</button>
+                    <button onClick={() => handleSearchTermUpdate}>Search</button>
+                    <p>Search Term: {searchTerm}</p>
                 </div>
                 <div>
                     <button onClick={() => setScreen('MarketData')}>Market Data</button>
@@ -60,7 +65,6 @@ const Content = () => {
                     <button onClick={() => setScreen("BalanceSheets")}>Balance Sheets</button>
                     <button onClick={() => setScreen("CashFlow")}>Cash Flow</button>
                     <button onClick={() => setScreen("Earnings")}>Earnings</button>
-                    <button onClick={() => setScreen("EarningsCalendar")}>Earnings Calendar</button>                    
                 </div>
             </CenteredContent>
             <StlyedContent>

@@ -22,7 +22,7 @@ const MarketData = () => {
 
     useEffect( () => {
         async function getData() {
-            const response  = await getMarketTelemetryData()//.then(res => setMarketData(res))
+            const response  = await getMarketTelemetryData()
             setMarketData(response)
         }
 

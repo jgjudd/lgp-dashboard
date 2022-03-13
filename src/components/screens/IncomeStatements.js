@@ -1,38 +1,68 @@
-import { useState, useEffect } from "react";
-import QuarterlyReports from "../QuarterlyReportsTable";
-import AnnualReports from "../AnnualReports";
-import { getIncomeStatements } from '../../AlphaVantageProvider';
+import { useState, useEffect } from 'react'
+import { getIncomeStatements } from "../../AlphaVantageProvider"
 
-const IncomeStatements = ({ symbol = '' }) => {
-    const [incomeReports, setIncomeReports] = useState({
-        quarterlyReports: [],
-        annualReports: []
-    });
+const IncomeStatements = ({ symbol }) => {
+    const [incomeStatements, setIncomeStatements] = useState()
 
-    useEffect( async () => {
-        if (symbol !== '') {
-            const response = await getIncomeStatements(symbol);
-    
-            setIncomeReports({
-                quarterlyReports: response.data.quarterlyReports,
-                annualReports: response.data.annualReports,
-                symbol: response.data.symbol
-            })  
+    useEffect(() => {
+        async function getData() {
+            const data = await getIncomeStatements()
+            console.log(data)
+            setIncomeStatements(data)
         }
-    }, [])
+
+        getData()
+    }, [symbol])
 
     return (
-        <div>
-            <AnnualReports 
-                symbol={incomeReports.symbol} 
-                annualReports={incomeReports.annualReports} 
-            />
-            <QuarterlyReports 
-                symbol={incomeReports.symbol} 
-                quarterlyReports={incomeReports.quarterlyReports} 
-            />
+        <>
+        <h2>Income Statements - {symbol}</h2>
+        <div style={{ display: 'flex' }}>
+            <div>
+                <h3>Annual Reports</h3>
+                <div>
+                    {
+                        incomeStatements &&
+                        incomeStatements.data.annualReports.map(report => (
+                            <>
+                            <div>
+                                {
+                                    Object.keys(report).map(key => (
+                                        <p><b>{key}</b> {report[key]}</p>
+                                    ))
+                                }
+                            </div>
+                            <p>--------------------------------------------------------------</p>
+                            </>
+                        ))
+                    }
+                </div>
+            </div>
+            <div>
+                <h3>Quarterly Reports</h3>
+                <div>
+                    {
+                        incomeStatements &&
+                        incomeStatements.data.quarterlyReports.map(report => (
+                            <>
+                            <div>
+                                {
+                                    Object.keys(report).map(key => (
+                                        <p><b>{key}</b> {report[key]}</p>
+                                    ))
+                                }
+                            </div>
+                            <p>--------------------------------------------------------------</p>
+                            </>
+                        ))
+                    }
+                </div>
+            </div>
         </div>
+        </>
     )
 }
 
 export default IncomeStatements
+
+

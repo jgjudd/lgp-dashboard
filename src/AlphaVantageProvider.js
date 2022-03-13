@@ -3,8 +3,8 @@ import axios from 'axios';
 const API_KEY = '16RM7YB3WU85H52Z'
 
 export const getIncomeStatements = async (symbol) => {
-    const term = symbol.toUpperCase().trim();
-    return await axios.get(`https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${term}&apikey=${API_KEY}`)
+    //const term = symbol.toUpperCase().trim();
+    return await axios.get(`https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=IBM&apikey=demo`)
                         //.then(res => console.log(res))
                         .catch(err => console.log(err));
 }
@@ -135,6 +135,46 @@ export const getUnemploymentRate = async () => {
 
 export const getNonfarmPayroll = async () => {
     return await axios.get('https://www.alphavantage.co/query?function=NONFARM_PAYROLL&apikey=demo')
+                        //.then(res => console.log(res))
+                        .catch(err => console.log(err));
+}
+//// End Market Methods //// 
+export const getCompanyOverview = async () => {
+    return await axios.get('https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=demo')
+                        //.then(res => console.log(res))
+                        .catch(err => console.log(err));
+}
+
+export const getCashFlow = async () => {
+    return await axios.get('https://www.alphavantage.co/query?function=CASH_FLOW&symbol=IBM&apikey=demo')
+                        //.then(res => console.log(res))
+                        .catch(err => console.log(err));
+}
+
+export const getBalanceSheets = async () => {
+    return await axios.get('https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=IBM&apikey=demo')
+                        //.then(res => console.log(res))
+                        .catch(err => console.log(err));
+}
+
+export const getEarnings = async () => {
+    return await axios.get('https://www.alphavantage.co/query?function=EARNINGS&symbol=IBM&apikey=demo')
+                        //.then(res => console.log(res))
+                        .catch(err => console.log(err));
+}
+
+export const getDaily = async () => {
+    return await axios.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=demo')
+                        //.then(res => console.log(res))
+                        .catch(err => console.log(err));
+}
+export const getWeekly = async () => {
+    return await axios.get('https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=IBM&apikey=demo')
+                        //.then(res => console.log(res))
+                        .catch(err => console.log(err));
+}
+export const getMonthly = async () => {
+    return await axios.get('https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=IBM&apikey=demo')
                         //.then(res => console.log(res))
                         .catch(err => console.log(err));
 }
