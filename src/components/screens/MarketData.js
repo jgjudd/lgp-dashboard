@@ -64,18 +64,20 @@ const MarketData = () => {
                                         borderCollapse: 'collapse'
                                     }}
                                 >
-                                    <TR>
-                                        <TH>{value.interval}</TH>
-                                        <TH>{value.unit}</TH>
-                                    </TR>
-                                {
-                                    value.data.map(x => 
+                                    <tbody>
                                         <TR>
-                                            <TD>{x.date}</TD>
-                                            <TD>{x.value}</TD>
+                                            <TH>{value.interval}</TH>
+                                            <TH>{value.unit}</TH>
                                         </TR>
-                                    )
-                                }
+                                        {
+                                            value.data.map((x, i) => 
+                                                <TR key={i}>
+                                                    <TD>{x.date}</TD>
+                                                    <TD>{x.value}</TD>
+                                                </TR>
+                                            )
+                                        }
+                                    </tbody>
                                 </table>
                             </div>
                         </div> 

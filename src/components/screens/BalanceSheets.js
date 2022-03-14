@@ -23,12 +23,12 @@ const BalanceSheets = ({ symbol }) => {
                 <div>
                     {
                         balanceSheets &&
-                        balanceSheets.data.annualReports.map(report => (
+                        balanceSheets.data.annualReports.map((report, i) => (
                             <>
-                            <div>
+                            <div key={i}>
                                 {
                                     Object.keys(report).map(key => (
-                                        <p><b>{key}</b> {report[key]}</p>
+                                        <p key={key}><b>{key}</b> {report[key]}</p>
                                     ))
                                 }
                             </div>
@@ -43,12 +43,12 @@ const BalanceSheets = ({ symbol }) => {
                 <div>
                     {
                         balanceSheets &&
-                        balanceSheets.data.quarterlyReports.map(report => (
+                        balanceSheets.data.quarterlyReports.map((report, i) => (
                             <>
-                            <div>
+                            <div key={i}>
                                 {
                                     Object.keys(report).map(key => (
-                                        <p><b>{key}</b> {report[key]}</p>
+                                        <p key={key}><b>{key}</b> {report[key]}</p>
                                     ))
                                 }
                             </div>

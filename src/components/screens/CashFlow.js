@@ -23,12 +23,12 @@ const CashFlow = ({ symbol }) => {
                 <div>
                     {
                         cashFlow &&
-                        cashFlow.data.annualReports.map(report => (
+                        cashFlow.data.annualReports.map((report, i) => (
                             <>
-                            <div>
+                            <div key={i}>
                                 {
                                     Object.keys(report).map(key => (
-                                        <p><b>{key}</b> {report[key]}</p>
+                                        <p key={key}><b>{key}</b> {report[key]}</p>
                                     ))
                                 }
                             </div>
@@ -43,12 +43,12 @@ const CashFlow = ({ symbol }) => {
                 <div>
                     {
                         cashFlow &&
-                        cashFlow.data.quarterlyReports.map(report => (
+                        cashFlow.data.quarterlyReports.map((report, i) => (
                             <>
-                            <div>
+                            <div key={i}>
                                 {
                                     Object.keys(report).map(key => (
-                                        <p><b>{key}</b> {report[key]}</p>
+                                        <p key={key}><b>{key}</b> {report[key]}</p>
                                     ))
                                 }
                             </div>

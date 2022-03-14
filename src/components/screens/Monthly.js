@@ -24,8 +24,8 @@ const Monthly = ({ symbol }) => {
             <h3>Meta Data</h3>
             {
                 metaData &&
-                Object.keys(metaData).map(item => (
-                    <div key={item}><b>{item}</b> : {metaData[item]}</div>
+                Object.keys(metaData).map((item, i) => (
+                    <div key={i}><b>{item}</b> : {metaData[item]}</div>
                 ))
             }
         </div>
@@ -33,8 +33,8 @@ const Monthly = ({ symbol }) => {
             <h3>Weekly Time Series</h3>
             {
                 monthly &&
-                Object.keys(monthly).map(month => (
-                    <div key={month}>
+                Object.keys(monthly).map((month, i) => (
+                    <div key={i}>
                         <b>{month}</b>
                         <div>
                             {
