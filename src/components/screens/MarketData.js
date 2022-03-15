@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { getMarketTelemetryData } from '../../AlphaVantageProvider'
+import LineChart from '../charts/chart-js/LineChart'
 import styled from "styled-components";
+import { Line } from "react-chartjs-2";
 
 const MarketData = () => {
     const [marketData, setMarketData] = useState([]);
@@ -23,6 +25,24 @@ const MarketData = () => {
     useEffect( () => {
         async function getData() {
             const response  = await getMarketTelemetryData()
+
+            console.log(response)
+
+            // let marketArr = []
+            // response.data.annualEarnings.map(item => {
+            //     // console.log(item)
+            //     let justTheYear = item.fiscalDateEnding.split('-')[0]
+            //     marketArr.push({ date: justTheYear, value: item.reportedEPS })
+            // })
+
+            response.map(item => (
+                item.data = item.data.sort((a, b) => {
+                    if (a.date < b.date) return -1
+                    if (a.date > b.date) return 1
+                    else return 0
+                })
+            ))
+
             setMarketData(response)
         }
 
@@ -43,12 +63,16 @@ const MarketData = () => {
                             key={i} 
                             style={{ padding: '1rem', 
                                 border: '1px solid black', 
-                                display: 'flex', 
-                                flexDirection: 'column', 
-                                alignItems: 'center'
+                                flexGrow: '1',
+                                width: '33%'
                             }}
                         >
-                            <p>{value.name}</p>
+                            <h4>{value.name}</h4>
+                            <LineChart 
+                                xLabel={`(Interval: ${value.interval}, Units: ${value.unit})`} 
+                                dataSet1={value.data} 
+                            />
+                            {/* <p>{value.name}</p>
 
                             <div 
                                 style={{
@@ -79,7 +103,7 @@ const MarketData = () => {
                                         }
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> */}
                         </div> 
                     )
                 })

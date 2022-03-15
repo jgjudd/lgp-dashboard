@@ -20,11 +20,11 @@ const Earnings = ({ symbol }) => {
             response.data.annualEarnings.map(item => {
                 // console.log(item)
                 let justTheYear = item.fiscalDateEnding.split('-')[0]
-                annualEarningsArr.push({ x: justTheYear, y: item.reportedEPS })
+                annualEarningsArr.push({ date: justTheYear, value: item.reportedEPS })
             })
             annualEarningsArr = annualEarningsArr.sort((a, b) => {
-                if (a.x < b.x) return -1
-                if (a.x > b.x) return 1
+                if (a.date < b.date) return -1
+                if (a.date > b.date) return 1
                 else return 0
             })
             //console.log(annualEarningsArr)
@@ -36,7 +36,7 @@ const Earnings = ({ symbol }) => {
                 //console.log(item)
                 let dateArray = item.fiscalDateEnding.split('-')
                 let monthAndYear = dateArray[1] + '/' + dateArray[0]
-                quarterlyEarningsArr.push({ x: monthAndYear, y: item.reportedEPS })
+                quarterlyEarningsArr.push({ date: monthAndYear, value: item.reportedEPS })
             })
             // quarterlyEarningsArr = quarterlyEarningsArr.sort((a, b) => {
 

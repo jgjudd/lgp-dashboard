@@ -38,9 +38,9 @@ const LineChart = ({ title = 'Default Title', xLabel = '', dataSet1 = [], dataSe
     // DataSet 1
     const labels1 = []
     const values1 = []
-    dataSet1.map(set => {
-        labels1.push(set.x)
-        values1.push(set.y)
+    dataSet1.map(item => {
+        labels1.push(item.date)
+        values1.push(item.value)
     })
     // // DataSet2
     // const labels2 = []
